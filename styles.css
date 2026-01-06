@@ -24,6 +24,146 @@ a {
     text-decoration: none;
 }
 
+.main-content {
+  position: relative;
+  z-index: 2000;
+}
+
+/* Background */
+.white {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.white::before {
+  z-index: 1000;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60vh;
+  background-image: linear-gradient(
+    -180deg,
+    #FFFFFF 0%,
+    rgba(255, 255, 255, 0.00) 100%
+  );
+}
+
+.white::after {
+  z-index: 1000;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20vh;
+  background-image: linear-gradient(
+    0deg,
+    #EBEBEB 0%,
+    rgba(235, 235, 235, 0.00) 100%
+  );
+}
+
+.squares {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  overflow: hidden;
+}
+
+.square {
+  animation: squares 9.5s linear infinite;
+  align-self: flex-end;
+  width: 1em;
+  height: 1em;
+  transform: translateY(100%);
+  background: #ebebeb;
+}
+
+/* Individual square variations */
+
+.square:nth-child(2) {
+  height: 1.5em;
+  width: 3em;
+  animation-delay: 1s;
+  animation-duration: 17s;
+  -webkit-filter: blur(5px);
+}
+
+.square:nth-child(3) {
+  height: 2em;
+  width: 1em;
+  animation-delay: 1.5s;
+  animation-duration: 8s;
+  -webkit-filter: blur();
+}
+
+.square:nth-child(4) {
+  height: 1em;
+  width: 1.5em;
+  animation-delay: 0.5s;
+  animation-duration: 13s;
+  -webkit-filter: blur(3px);
+}
+
+.square:nth-child(5) {
+  height: 1.25em;
+  width: 2em;
+  animation-delay: 4s;
+  animation-duration: 11s;
+  -webkit-filter: blur(2px);
+}
+
+.square:nth-child(6) {
+  height: 2.5em;
+  width: 2em;
+  animation-delay: 2s;
+  animation-duration: 9s;
+  -webkit-filter: blur(1px);
+}
+
+.square:nth-child(7) {
+  height: 5em;
+  width: 2em;
+  animation-duration: 12s;
+  -webkit-filter: blur(2.5px);
+}
+
+.square:nth-child(8) {
+  height: 1em;
+  width: 3em;
+  animation-delay: 5s;
+  animation-duration: 18s;
+  -webkit-filter: blur(6px);
+}
+
+.square:nth-child(9) {
+  height: 3em;
+  width: 2.4em;
+  animation-delay: 6s;
+  animation-duration: 12s;
+  -webkit-filter: blur(0.5px);
+}
+
+/* Animation */
+
+@keyframes squares {
+  from {
+    transform: translateY(100%) rotate(-50deg);
+  }
+  to {
+    transform: translateY(calc(-100vh + -100%)) rotate(20deg);
+  }
+}
+
+
+
 /* NAVBAR */
 
 nav{
@@ -110,8 +250,9 @@ nav .right a span{
 }
 
 .hero-section .headshot img {
-    border-radius: 100%;
+    border-radius: 75%;
     width: 350px;
+    height: 350px;
 }
 
 /* Section 2: Skills */
@@ -175,17 +316,21 @@ nav .right a span{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem; /* Controls spacing between cards */
+    padding: 2.5rem;
 }
 
 .project-section .project-cards .project-card{
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    border-radius: 16px;
-    padding: 1.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    --grad: red, blue;
+    padding: 2.5rem;
+    background-image: linear-gradient(to bottom left, #e0e4e5, #f2f6f9);
+    border-radius: 2rem;
+    gap: 1.5rem;
+    display: grid;
+    font-family: system-ui, sans-serif;
+    color: #444447;
+    box-shadow: 
+        inset -2px 2px hsl(0 0 100% / 1),
+        -20px 20px 40px hsl(0 0 0 / .25) ;
 }
 
 .project-section .project-cards .project-card .project-image{
@@ -217,11 +362,35 @@ nav .right a span{
 }
 
 .project-section .project-cards .project-card .project-tags .tag {
-    font-size: 0.7rem;
-    padding: 0.35rem 0.6rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.08);
-    opacity: 0.85;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 30em;
+    font-size: 12px;
+    font-family: inherit;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 6px 6px 12px #c5c5c5,
+                -6px -6px 12px #ffffff;
+}
+
+.tag::before{
+    content: '';
+    width: 0;
+    height: 3em;
+    border-radius: 30em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right, #0fd850 0%, #f9f047 100%);
+    transition: .5s ease;
+    display: block;
+    z-index: -1;
+}
+
+.tag:hover::before {
+ width: 9em;
 }
 
 .project-section .project-cards .project-card .project-description{
@@ -231,7 +400,7 @@ nav .right a span{
     margin-bottom: 1.5rem;
 }
 
-.project-section .project-cards .project-card .project-links .btn{
+.project-section .project-cards .project-card .project-links{
     display: flex;
     gap: 0.75rem;
     margin-bottom: 1.25rem;
